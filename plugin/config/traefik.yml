@@ -1,0 +1,32 @@
+api:
+  insecure: true
+
+certificatesResolvers:
+  le:
+    acme:
+      email: "josh@ret2bin.sh"
+      storage: "./acme.json"
+      caserver: "https://acme-v02.api.letsencrypt.org/directory"
+      httpChallenge:
+        entryPoint: "web"
+
+entryPoints:
+  web:
+    address: :80
+  websecure:
+    address: :443
+
+log:
+  level: "DEBUG"
+
+providers:
+  docker: true
+  file:
+    directory: "/etc/traefik"
+    filename: "config.yml"
+    watch: true
+
+experimental:
+  localPlugins:
+    uaredirect:
+      moduleName: "github.com/ret2binsh/traefik-plugin-permituseragent"
