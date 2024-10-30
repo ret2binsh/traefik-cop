@@ -1,12 +1,19 @@
 version: '3.6'
 services:
+  traefik-cop:
+    container_name: traefik-cop
+    build: traefik-cop
+    ports:
+      - 0.0.0.0:7000:7000
+    volumes:
+      - ./config:/app/config:rw
   traefik:
     container_name: traefik-ng
     build: traefik-ng
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
-      - "0.0.0.0:8080:8080"
+      - "0.0.0.0:8082:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./config:/etc/traefik/:rw"
