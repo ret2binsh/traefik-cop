@@ -1,31 +1,17 @@
 http:
     middlewares:
-        coldrush-redirect:
-            plugin:
-                uaredirect:
-                    url: https://www.yahoo.com
-                    useragent: Wget 1.4/(gnu)
         example-redirect:
             plugin:
                 uaredirect:
                     url: https://www.google.com
                     useragent: Example Agent 1.0
     routers:
-        coldrush:
-            entrypoints: web
-            middlewares: coldrush-redirect
-            rule: Host(`admin.amazonaws.com`)
-            service: coldrush-svc
         example:
             entrypoints: web
             middlewares: example-redirect
             rule: Host(`callback.example.com`)
             service: example-svc
     services:
-        coldrush-svc:
-            loadbalancer:
-                servers:
-                    - url: http://10.66.30.21:5000
         example-svc:
             loadbalancer:
                 servers:
